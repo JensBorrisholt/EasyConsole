@@ -8,7 +8,7 @@ This project is a Delphi remake of his idea.
 
 ## Dependencies
 
-EasyConsole make use of my own Console library DelphiConsole anso find here on GitHUB (https://github.com/JensBorrisholt/DelphiConsole. When using this library. Please make sure you got the newest version of DelphiConsole also.
+EasyConsole make use of my own Console library [DelphiConsole](https://github.com/JensBorrisholt/DelphiConsole). When using this library. Please make sure you got the newest version of DelphiConsole also.
 
 ![Program Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/Image1.gif)
 
