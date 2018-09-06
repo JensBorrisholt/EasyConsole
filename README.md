@@ -12,7 +12,7 @@ EasyConsole make use of my own Console library [DelphiConsole](https://github.co
 
 ![Program Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/Image1.gif)
 
-###Features
+### Features
 * Automatically numbered menus
 * Easy creation of menus
 * Input/Output helpers
