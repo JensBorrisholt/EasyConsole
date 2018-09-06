@@ -3,8 +3,8 @@ EasyConsole is a library to make it easier for developers to build a simple menu
 
 ## Credit
 
-The basic idea behind this library goes to splttingatms and his EasyConsole build in c# (https://github.com/splttingatms/EasyConsole)
-This project is a delphi remake of his idea. 
+The basic idea behind this library goes to splttingatms and his [EasyConsole] ((https://github.com/splttingatms/EasyConsole)) build in c#
+This project is a Delphi remake of his idea. 
 
 ## Dependencies
 
@@ -182,4 +182,4 @@ end;
 As you can see, navigation is handled by the `Program` class. As you navigate through to different pages, the history is logged. You can then invoke `NavigateBack()` if you would like to go back to the previous page.
 
 ## Example Project
-The source code contains an example console demo under the [Demo directory]( ... /Demo). It offers a demo with nested menu options as well as an example of how to prompt the user for input.
+The source code contains an example console demo under the [Demo directory](https://github.com/JensBorrisholt/EasyConsole/tree/master/Demo). It offers a demo with nested menu options as well as an example of how to prompt the user for input.
