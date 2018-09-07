@@ -6,6 +6,7 @@ program EasyConsoleDemo;
 uses
   DemoProgramU in 'DemoProgramU.pas',
   DemoPagesU in 'DemoPagesU.pas';
+
 begin
   TDemoProgram.CreateAndRun;
 end.

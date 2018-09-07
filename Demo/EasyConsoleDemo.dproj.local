@@ -1,31 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.057,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Pages\MainPageU.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.877,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Input.pas=</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.171,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Input.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.356,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.953,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.292,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\DemoPagesU.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.199,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Types.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.259,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Enumeration.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.824,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Enumeration.pas=</Transaction>
     <Transaction>1899-12-30 00:00:00.000.550,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\AnonymousEvents.pas=</Transaction>
     <Transaction>1899-12-30 00:00:00.000.257,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\AnonymousEvents.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.171,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Input.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.451,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.611,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Console.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.849,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Console.pas=</Transaction>
     <Transaction>1899-12-30 00:00:00.000.868,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Types.pas=</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.737,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.691,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\Project31.dproj=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\EasyConsoleDemo.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.259,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Enumeration.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.824,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Enumeration.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.720,=C:\Users\Jens\source\Delphi\_EasyConsole\Demo\DemoPagesU.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.199,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Types.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.057,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Pages\MainPageU.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.740,C:\Users\Jens\source\Delphi\EasyConsole\Libs\AnonymousEvent.pas=C:\Users\Jens\source\Delphi\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.772,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\DemoProgramU.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.185,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Output.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.292,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\DemoPagesU.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.286,C:\Users\Jens\source\Delphi\EasyConsole\Framework\Spinner.pas=C:\Users\Jens\source\Delphi\EasyConsole\Demo\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.871,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.Output.pas=</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.220,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\FrameWork.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.501,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.FrameWork.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.890,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\EasyConsole.FrameWork.pas=</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.772,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\DemoProgramU.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.611,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Console.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.691,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\EasyConsoleDemo.dproj=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\Project31.dproj</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.451,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.049,=C:\Users\Jens\source\Delphi\EasyConsole\Framework\EasyConsole.Spinner.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.127,=C:\Users\Jens\source\Delphi\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.737,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.953,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.220,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\EasyConsole\FrameWork.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.356,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Demo\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.813,=C:\Users\Jens\source\Delphi\EasyConsole\Demo\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.697,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\Unit34.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.912,=C:\Users\Jens\Documents\Embarcadero\Studio\Projects\Unit34.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.849,C:\Users\Jens\Documents\Embarcadero\Studio\Projects\EasyConsole\Libs\System.Console.pas=</Transaction>
-    <Transaction>2018-09-06 10:30:58.720,=C:\Users\Jens\source\Delphi\_EasyConsole\Demo\DemoPagesU.pas</Transaction>
   </Transactions>
 </BorlandProject>

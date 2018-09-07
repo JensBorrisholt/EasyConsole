@@ -103,6 +103,7 @@ implementation
 
 uses
   System.Classes, Winapi.Windows, System.Console, EasyConsole.Output, EasyConsole.Input;
+
 { TPage }
 
 type

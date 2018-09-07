@@ -8,12 +8,12 @@ uses
 type
   Input = record
   public
+    class function ReadEnum<TEnum: record >(Prompt: string): TEnum; static;
     class function ReadInt: Integer; overload; static;
     class function ReadInt(aMin, aMax: Integer): Integer; overload; static;
     class function ReadInt(aPrompt: string; aMin, aMax: Integer): Integer; overload; static;
     class function ReadString(aPrompt: string): string; static;
-  public
-    class function ReadEnum<TEnum: record >(Prompt: string): TEnum; static;
+    class function WaitForKey(aPrompt: string): string; static;
   end;
 
 resourcestring
@@ -68,6 +68,17 @@ class function Input.ReadString(aPrompt: string): string;
 begin
   Output.DisplayPrompt(aPrompt);
   Result := Console.ReadLine;
+end;
+
+class function Input.WaitForKey(aPrompt: string): string;
+var
+  CursorVisible : Boolean;
+begin
+  Output.DisplayPrompt(aPrompt);
+  CursorVisible := Console.CursorVisible;
+  Console.CursorVisible := false;
+  Result := Console.ReadLine;
+  Console.CursorVisible := CursorVisible;
 end;
 
 class function Input.ReadInt(aMin, aMax: Integer): Integer;
