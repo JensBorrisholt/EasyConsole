@@ -46,7 +46,7 @@ begin
     end;
 end.
 ```
-![Menu Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/Image2.png)
+![Menu Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/QuickStartMenu.png)
 
 
 ### Utilities - Input/Output
