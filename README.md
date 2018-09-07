@@ -4,15 +4,15 @@ EasyConsole is a library to make it easier for developers to build a simple menu
 ## Credit
 
 The basic idea behind this library goes to splttingatms and his [EasyConsole](https://github.com/splttingatms/EasyConsole) build in c#
-This project is a Delphi remake of his idea. 
+This project is a Delphi remake, and further development, of his idea. 
 
 ## Dependencies
 
-EasyConsole make use of my own Console library DelphiConsole anso find here on GitHUB (https://github.com/JensBorrisholt/DelphiConsole. When using this library. Please make sure you got the newest version of DelphiConsole also.
+EasyConsole make use of my own Console library [DelphiConsole](https://github.com/JensBorrisholt/DelphiConsole). When using this library. Please make sure you got the newest version of DelphiConsole also.
 
 ![Program Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/Image1.gif)
 
-###Features
+### Features
 * Automatically numbered menus
 * Easy creation of menus
 * Input/Output helpers
@@ -46,7 +46,7 @@ begin
     end;
 end.
 ```
-![Menu Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/Image2.png)
+![Menu Demo](http://borrisholt.dk/GitHub/Images/EasyConsole/QuickStartMenu.png)
 
 
 ### Utilities - Input/Output
@@ -183,3 +183,5 @@ As you can see, navigation is handled by the `Program` class. As you navigate th
 
 ## Example Project
 The source code contains an example console demo under the [Demo directory](https://github.com/JensBorrisholt/EasyConsole/tree/master/Demo). It offers a demo with nested menu options as well as an example of how to prompt the user for input.
+
+![Example Project](http://borrisholt.dk/GitHub/Images/EasyConsole/Final.gif)
