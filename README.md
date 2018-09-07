@@ -184,4 +184,4 @@ As you can see, navigation is handled by the `Program` class. As you navigate th
 ## Example Project
 The source code contains an example console demo under the [Demo directory](https://github.com/JensBorrisholt/EasyConsole/tree/master/Demo). It offers a demo with nested menu options as well as an example of how to prompt the user for input.
 
-(http://borrisholt.dk/GitHub/Images/EasyConsole/ExampleProject.png)
+![Example Project](http://borrisholt.dk/GitHub/Images/EasyConsole/ExampleProject.png)
