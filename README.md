@@ -4,7 +4,7 @@ EasyConsole is a library to make it easier for developers to build a simple menu
 ## Credit
 
 The basic idea behind this library goes to splttingatms and his [EasyConsole](https://github.com/splttingatms/EasyConsole) build in c#
-This project is a Delphi remake of his idea. 
+This project is a Delphi remake, and further development, of his idea. 
 
 ## Dependencies
 
