@@ -12,13 +12,12 @@ type
   TMainPage = class(TMenuPage)
   public
     constructor Create;
-    procedure Display; override;
   end;
 
-  TInputPage = class(TPage)
+  TInputPage = class(TMenuPageInput<TFruit>)
   public
     constructor Create; reintroduce;
-    procedure Display; override;
+    function WaitForChoice : Integer; override;
   end;
 
   TPage1 = class(TMenuPage)
@@ -69,12 +68,6 @@ begin
     ]);
 end;
 
-procedure TMainPage.Display;
-begin
-  Console.Clear;
-  inherited;
-end;
-
 { TInputPage }
 
 constructor TInputPage.Create;
@@ -82,14 +75,11 @@ begin
   inherited Create('Input');
 end;
 
-procedure TInputPage.Display;
-var
-  Fruit: TFruit;
+function TInputPage.WaitForChoice : Integer;
 begin
-  inherited;
-
-  Fruit := Input.ReadEnum<TFruit>('Select a fruit');
-  Output.WriteLine(TConsoleColor.Green, 'You selected ' + TEnumeration<TFruit>.GetName(Fruit));
+  Result := inherited WaitForChoice;
+  Output.EmptyLine;
+  Output.WriteLine(TConsoleColor.Green, 'You selected ' + SlectedEnumName(Result));
   Input.ReadString('Press [Enter] to navigate home');
   &Program.NavigateHome;
 end;

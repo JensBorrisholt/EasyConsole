@@ -8,12 +8,11 @@ uses
 type
   Input = record
   public
-    class function ReadEnum<TEnum: record >(Prompt: string): TEnum; static;
     class function ReadInt: Integer; overload; static;
     class function ReadInt(aMin, aMax: Integer): Integer; overload; static;
     class function ReadInt(aPrompt: string; aMin, aMax: Integer): Integer; overload; static;
     class function ReadString(aPrompt: string): string; static;
-    class function WaitForKey(aPrompt: string): string; static;
+    class function WaitForKey(aPrompt: string): TConsoleKeyInfo; static;
   end;
 
 resourcestring
@@ -23,40 +22,9 @@ resourcestring
 implementation
 
 uses
-  System.Sysutils, System.SysConst, System.Enumeration,
-  EasyConsole.Types;
+  System.Sysutils, EasyConsole.Types;
+
 { Input }
-
-class function Input.ReadEnum<TEnum>(Prompt: string): TEnum;
-var
-  IterValue: Integer;
-  Menu: TMenuVariable;
-  Choice: TEnum;
-  IterName: String;
-  Enumeration: TEnumeration<TEnum>;
-begin
-  if not Enumeration.IsEnumeration then
-    raise EInvalidCast.CreateRes(@SInvalidCast);
-
-  Output.WriteLine(Prompt);
-
-  Menu := TMenuVariable.Create;
-  try
-    for IterValue := Enumeration.MinValue to Enumeration.MaxValue do
-    begin
-      IterName := Enumeration.GetName(IterValue);
-      Menu.Add(IterName,
-        procedure(MenuItem: Variant)
-        begin
-          Choice := Enumeration.FromOrdinal(MenuItem - 1);
-        end)
-    end;
-    Menu.Display;
-    Result := Choice;
-  finally
-    Menu.Free;
-  end;
-end;
 
 class function Input.ReadInt(aPrompt: string; aMin, aMax: Integer): Integer;
 begin
@@ -70,14 +38,14 @@ begin
   Result := Console.ReadLine;
 end;
 
-class function Input.WaitForKey(aPrompt: string): string;
+class function Input.WaitForKey(aPrompt: string): TConsoleKeyInfo;
 var
-  CursorVisible : Boolean;
+  CursorVisible: Boolean;
 begin
   Output.DisplayPrompt(aPrompt);
   CursorVisible := Console.CursorVisible;
   Console.CursorVisible := false;
-  Result := Console.ReadLine;
+  Result := Console.ReadKey(True);
   Console.CursorVisible := CursorVisible;
 end;
 
@@ -107,7 +75,7 @@ begin
       break;
 
     Output.DisplayPrompt(STR_PLEASE_ENTER_AN_INTEGER);
-  until False;
+  until false;
 
   Result := Value;
 end;

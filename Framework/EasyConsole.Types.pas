@@ -24,6 +24,7 @@ type
     FBreadcrumbHeader: Boolean;
     FHistory: THistory;
     FPages: TPages;
+    procedure DisplayCurrentPage;
     function GetCurrentPage: TPage;
     function GetNavigationEnabled: Boolean;
   protected
@@ -62,37 +63,35 @@ type
   TMenu = class
   strict private
     FOptions: TObjectList<TOption>;
+    FCurrentMenuItem: Integer;
+    function GetCount: Integer;
   protected
-    function DisplayAndGetChoice: Integer; virtual;
     property Options: TObjectList<TOption> read FOptions;
   public
     constructor Create;
     destructor Destroy; override;
-    Function Add(Option: string; Action: TProc): TMenu; overload;
+    function Add(Option: string; Action: TProc): TMenu; overload;
     Function Add(aOption: TOption): TMenu; overload;
     Function Contains(aOption: string): Boolean;
     procedure Display; virtual;
-  end;
-
-  TMenuVariable = class(TMenu)
-  public
-    Function Add(Option: string; Action: TProc<Variant>): TMenu;
-    procedure Display; reintroduce;
+    procedure ExecuteAction(Index: Integer);
+    procedure DecreaseCurrentMenuItem;
+    procedure IncreaseCurrentMenuItem;
+  published
+    property CurrentMenuItem: Integer read FCurrentMenuItem;
+    property Count: Integer read GetCount;
   end;
 
   TOption = class
   strict private
     FName: String;
     FCallBack: TProc;
-    FCallbackParam: TProc<Variant>;
   public
     constructor Create(aName: string; aCallback: TProc); reintroduce; overload;
     class function CreateNavigation<T: TPage>(aName: string): TOption;
-    constructor Create(aName: string; aCallbackParam: TProc<Variant>); overload;
   published
     property Name: String read FName;
     property Callback: TProc read FCallBack;
-    property CallbackParam: TProc<Variant> read FCallbackParam;
   end;
 
 resourcestring
@@ -102,7 +101,7 @@ resourcestring
 implementation
 
 uses
-  System.Classes, Winapi.Windows, System.Console, EasyConsole.Output, EasyConsole.Input;
+  System.Classes, System.Math, System.Console, EasyConsole.Output, EasyConsole.Input, EasyConsole.FrameWork;
 
 { TPage }
 
@@ -137,6 +136,7 @@ var
   Titles: TList<string>;
   Page: TPage;
 begin
+  Console.Clear;
   Titles := TList<string>.Create;
 
   try
@@ -152,6 +152,7 @@ begin
 
       if BreadCrumb <> '' then
         BreadCrumb := BreadCrumb.Remove(BreadCrumb.Length - 3);
+
       Console.WriteLine(BreadCrumb);
     end
     else
@@ -199,6 +200,14 @@ begin
   inherited;
 end;
 
+procedure TProgram.DisplayCurrentPage;
+begin
+  if (CurrentPage is TMenuPage) then
+    (CurrentPage as TMenuPage).WaitForChoice
+  else
+    CurrentPage.Display;
+end;
+
 function TProgram.GetCurrentPage: TPage;
 begin
   if History.Count = 0 then
@@ -216,7 +225,7 @@ function TProgram.NavigateBack: TPage;
 begin
   History.Pop;
   Console.Clear;
-  CurrentPage.Display;
+  DisplayCurrentPage;
   Result := CurrentPage;
 end;
 
@@ -226,14 +235,14 @@ begin
     History.Pop;
 
   Console.Clear;
-  CurrentPage.Display;
+  DisplayCurrentPage;
 end;
 
 function TProgram.NavigateTo<T>: T;
 begin
   SetPage<T>;
   Console.Clear;
-  CurrentPage.Display;
+  DisplayCurrentPage;
   Result := CurrentPage as T;
 end;
 
@@ -241,7 +250,7 @@ procedure TProgram.Run;
 begin
   Console.Title := Title;
   try
-    CurrentPage.Display;
+    DisplayCurrentPage;
   except
     on e: Exception do
       Output.WriteLine(TConsoleColor.Red, e.ToString);
@@ -288,15 +297,23 @@ var
 begin
   for Option in FOptions do
     if aOption.Equals(Option.Name) then
-      exit(true);
+      exit(True);
 
-  exit(false);
+  exit(False);
 end;
 
 constructor TMenu.Create;
 begin
   inherited;
   FOptions := TObjectList<TOption>.Create;
+  FCurrentMenuItem := 1;
+end;
+
+procedure TMenu.DecreaseCurrentMenuItem;
+begin
+  FCurrentMenuItem := FCurrentMenuItem - 1;
+  if FCurrentMenuItem < 1 then
+    FCurrentMenuItem := FOptions.Count;
 end;
 
 destructor TMenu.Destroy;
@@ -307,19 +324,49 @@ end;
 
 procedure TMenu.Display;
 var
-  Choice: Integer;
-begin
-  Choice := DisplayAndGetChoice;
-  FOptions[Choice - 1].Callback();
-end;
-
-function TMenu.DisplayAndGetChoice: Integer;
-var
-  i: Integer;
+  i, MenuItem: Integer;
+  FontColor: TConsoleColor;
+  DisplayText: String;
 begin
   for i := 0 to FOptions.Count - 1 do
-    Console.WriteLine('{0}. {1}', [i + 1, FOptions[i].Name]);
-  Result := Input.ReadInt(STR_CHOOSE_AN_OPTION, 1, FOptions.Count);
+  begin
+    MenuItem := i + 1;
+
+    if MenuItem = FCurrentMenuItem then
+      FontColor := TConsoleColor.Yellow
+    else
+      FontColor := TConsoleColor.White;
+
+    if MenuItem = FCurrentMenuItem then
+      DisplayText := FOptions[i].Name + ' <--'
+    else
+      DisplayText := FOptions[i].Name;
+
+    Output.WriteLine(FontColor, '{0}. {1}', [MenuItem, DisplayText]);
+  end;
+end;
+
+procedure TMenu.ExecuteAction(Index: Integer);
+begin
+  if not InRange(Index, 1, FOptions.Count) then
+    exit;
+
+  dec(Index);
+
+  if Assigned(FOptions[Index].Callback) then
+    FOptions[Index].Callback();
+end;
+
+function TMenu.GetCount: Integer;
+begin
+  Result := FOptions.Count;
+end;
+
+procedure TMenu.IncreaseCurrentMenuItem;
+begin
+  FCurrentMenuItem := FCurrentMenuItem + 1;
+  if FCurrentMenuItem > FOptions.Count then
+    FCurrentMenuItem := 1;
 end;
 
 { TOption }
@@ -331,13 +378,6 @@ begin
   FCallBack := aCallback;
 end;
 
-constructor TOption.Create(aName: string; aCallbackParam: TProc<Variant>);
-begin
-  inherited Create;
-  FName := aName;
-  FCallbackParam := aCallbackParam;
-end;
-
 class function TOption.CreateNavigation<T>(aName: string): TOption;
 begin
   Result := TOption.Create(aName,
@@ -346,22 +386,5 @@ begin
       TProgram.Instance.NavigateTo<T>;
     end);
 end;
-
-{ TMenuVariable }
-
-function TMenuVariable.Add(Option: string; Action: TProc<Variant>): TMenu;
-begin
-  Result := inherited Add(TOption.Create(Option, Action));
-end;
-
-procedure TMenuVariable.Display;
-var
-  Choice: Integer;
-begin
-  Choice := DisplayAndGetChoice;
-  Options[Choice - 1].CallbackParam(Choice);
-end;
-
-{ THistory }
 
 end.
