@@ -18,7 +18,6 @@ type
   TProgram = class
   strict private
     class var FInstance: TProgram;
-
   var
     FTitle: string;
     FBreadcrumbHeader: Boolean;
@@ -382,6 +381,7 @@ begin
   if not InRange(Index, 1, FOptions.Count) then
     exit;
 
+  FCurrentMenuItem := Index;
   dec(Index);
 
   if Assigned(FOptions[Index].Callback) then

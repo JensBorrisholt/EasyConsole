@@ -114,6 +114,7 @@ begin
     end;
 
     Display;
+
     if Key.InternalKey in [TConsoleKey.D0 .. TConsoleKey.D9] then // Number pressed
     begin
       Result := Integer(Key.InternalKey) - Integer(TConsoleKey.D1) + 1;

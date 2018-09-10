@@ -130,7 +130,6 @@ end;
 
 procedure TConsoleBuffer.WriteLine(aLine: String; xPos, yPos: Integer; aColor: TConsoleColor);
 var
-  CH: Char;
   i: Integer;
   Pixel: PCharInfo;
 begin
