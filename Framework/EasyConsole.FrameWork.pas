@@ -3,12 +3,13 @@ unit EasyConsole.FrameWork;
 interface
 
 uses
-  EasyConsole.Types;
+  EasyConsole.Types, System.Console.ConsoleBuffer;
 
 type
   TMenuPage = class(TPage)
   strict private
     FWantGoBack: boolean;
+
   strict protected
     FMenu: TMenu;
     procedure AddGoBackPage;
@@ -67,7 +68,7 @@ var
 begin
   inherited Create(aTitle);
   FWantGoBack := aWantGoBack;
-  FMenu := TMenu.Create;
+  FMenu := TMenu.Create(FConsoleBuffer);
   for Option in Options do
     FMenu.Add(Option);
 end;
@@ -86,6 +87,8 @@ begin
     AddGoBackPage;
 
   FMenu.Display;
+
+  FConsoleBuffer.Print(True);
   Output.DisplayPrompt(STR_CHOOSE_AN_OPTION + #32 + FMenu.CurrentMenuItem.ToString);
 end;
 
@@ -136,7 +139,7 @@ begin
 
   inherited Create(aTitle, [], false);
 
-  FMenu := TMenu.Create;
+  FMenu := TMenu.Create(FConsoleBuffer);
 
   for IterValue := Enumeration.MinValue to Enumeration.MaxValue do
   begin

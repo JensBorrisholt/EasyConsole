@@ -3,7 +3,7 @@ unit EasyConsole.Types;
 interface
 
 uses
-  System.Generics.Collections, System.Sysutils;
+  System.Generics.Collections, System.SysUtils, System.Console.ConsoleBuffer;
 
 {$M+}
 
@@ -52,10 +52,13 @@ type
     FTitle: string;
     FProgram: TProgram;
   protected
+    FConsoleBuffer: TConsoleBuffer;
     constructor Create(aTitle: String); reintroduce; virtual;
+    procedure DrawAsciiArt;
     property &Program: TProgram read FProgram;
   public
     procedure Display; virtual;
+    Destructor Destroy; override;
   published
     property Title: string read FTitle;
   end;
@@ -64,11 +67,12 @@ type
   strict private
     FOptions: TObjectList<TOption>;
     FCurrentMenuItem: Integer;
+    FConsoleBuffer: TConsoleBuffer;
     function GetCount: Integer;
   protected
     property Options: TObjectList<TOption> read FOptions;
   public
-    constructor Create;
+    constructor Create(aConsoleBuffer: TConsoleBuffer);
     destructor Destroy; override;
     function Add(Option: string; Action: TProc): TMenu; overload;
     Function Add(aOption: TOption): TMenu; overload;
@@ -128,6 +132,13 @@ begin
   inherited Create;
   FTitle := aTitle;
   FProgram := TProgram.Instance;
+  FConsoleBuffer := TConsoleBuffer.Create;
+end;
+
+destructor TPage.Destroy;
+begin
+  FConsoleBuffer.Free;
+  inherited;
 end;
 
 procedure TPage.Display;
@@ -137,6 +148,7 @@ var
   Page: TPage;
 begin
   Console.Clear;
+  FConsoleBuffer.Clear;
   Titles := TList<string>.Create;
 
   try
@@ -152,16 +164,31 @@ begin
 
       if BreadCrumb <> '' then
         BreadCrumb := BreadCrumb.Remove(BreadCrumb.Length - 3);
-
-      Console.WriteLine(BreadCrumb);
     end
     else
-      Console.WriteLine(FTitle);
+    begin
+      DrawAsciiArt;
+      BreadCrumb := FTitle;
+    end;
 
-    Console.WriteLine('---');
+    FConsoleBuffer.WriteLine(BreadCrumb, TConsoleColor.Magenta);
+    FConsoleBuffer.WriteLine('---', TConsoleColor.Gray);
   finally
     Titles.Free;
   end;
+end;
+
+procedure TPage.DrawAsciiArt;
+begin
+  FConsoleBuffer.WriteLine('  ______                   _____                      _', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine(' |  ____|                 / ____|                    | |', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine(' | |__   __ _ ___ _   _  | |     ___  _ __  ___  ___ | | ___', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine(' |  __| / _` / __| | | | | |    / _ \| ''_ \/ __|/ _ \| |/ _ \', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine(' | |___| (_| \__ \ |_| | | |___| (_) | | | \__ \ (_) | |  __/', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine(' |______\__,_|___/\__, |  \_____\___/|_| |_|___/\___/|_|\___|', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine('                   __/ |', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine('                  |___/', TConsoleColor.Blue);
+  FConsoleBuffer.WriteLine('', TConsoleColor.Blue);
 end;
 
 { TProgram }
@@ -304,9 +331,10 @@ end;
 
 constructor TMenu.Create;
 begin
-  inherited;
+  inherited Create;
   FOptions := TObjectList<TOption>.Create;
   FCurrentMenuItem := 1;
+  FConsoleBuffer := aConsoleBuffer;
 end;
 
 procedure TMenu.DecreaseCurrentMenuItem;
@@ -342,7 +370,10 @@ begin
     else
       DisplayText := FOptions[i].Name;
 
-    Output.WriteLine(FontColor, '{0}. {1}', [MenuItem, DisplayText]);
+    if FConsoleBuffer <> nil then
+      FConsoleBuffer.WriteLine(MenuItem.ToString + '. ' + DisplayText, FontColor)
+    else
+      Output.WriteLine(FontColor, '{0}. {1}', [MenuItem, DisplayText]);
   end;
 end;
 

@@ -669,7 +669,6 @@ var
   ReadRegion, WriteRegion: SMALL_RECT;
   dwWriteCoord, bufferCoord: TCoord;
   wColorAttribute, color: TWinColor;
-
 begin
   if ((SourceForeColor < TConsoleColor.Black) or (SourceForeColor > TConsoleColor.White)) then
     raise EArgumentException.Create('ParamName: SourceForeColor');
