@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, System.Console;
+
 {$M+}
+
 Type
   TConsoleBuffer = class
   strict private
@@ -14,11 +16,14 @@ Type
     FWindowWidth: Integer;
     FHeight: Integer;
     FBuffer: array of CHAR_INFO;
+    FClearBuffer: array of CHAR_INFO;
     FRect: TSmallRect;
     FCurrentLine: Integer;
 
     FBufferSize: COORD;
     FBufferCoordinale: COORD;
+    FDefaultColor: TConsoleColor;
+    procedure InternalWriteLine(aLine: String; xPos, yPos: Integer; aColor: TConsoleColor); inline;
   published
     property CurrentLine: Integer read FCurrentLine;
     property Width: Integer read FWidth;
@@ -26,7 +31,7 @@ Type
     property WindowWidth: Integer read FWindowWidth;
     property WindowHeight: Integer read FWindowHeight;
   public
-    constructor Create(aWidth: Integer = -1; aHeight: Integer = -1; aWindowWidth: Integer = -1; aWindowHeight: Integer = -1; aResizeConsole: Boolean = true);
+    constructor Create(aWidth: Integer = -1; aHeight: Integer = -1; aWindowWidth: Integer = -1; aWindowHeight: Integer = -1; aResizeConsole: Boolean = True);
     destructor Destroy; override;
 
     procedure Clear;
@@ -49,14 +54,13 @@ var
   i: Integer;
 begin
   FCurrentLine := 0;
-  for i := 0 to Length(FBuffer) do
-  begin
-    FBuffer[i].Attributes := 1;
-    FBuffer[i].AsciiChar := #32;
-  end;
+  i := Sizeof(FClearBuffer[0]) * length(FClearBuffer);
+  Move(FClearBuffer[0], FBuffer[0], i);
 end;
 
 constructor TConsoleBuffer.Create(aWidth, aHeight, aWindowWidth, aWindowHeight: Integer; aResizeConsole: Boolean);
+var
+  i: Integer;
 begin
   if aWindowWidth <= -1 then
     aWindowWidth := Console.WindowWidth;
@@ -86,19 +90,44 @@ begin
   FRect.Top := 0;
   FRect.Right := FWindowWidth;
   FRect.Bottom := FWindowHeight;
-  FCurrentLine := 0;
 
   FBufferSize.X := FWidth;
   FBufferSize.Y := FHeight;
   FBufferCoordinale.X := 0;
   FBufferCoordinale.Y := 0;
+
+  FDefaultColor := Console.ForegroundColor;
+
+  SetLength(FClearBuffer, Width * Height);
+  for i := 0 to length(FClearBuffer) do
+  begin
+    FClearBuffer[i].Attributes := 1;
+    FClearBuffer[i].AsciiChar := #32;
+    FClearBuffer[i].UnicodeChar := #32;
+  end;
+
   Clear;
 end;
 
 destructor TConsoleBuffer.Destroy;
 begin
   SetLength(FBuffer, 0);
+  SetLength(FClearBuffer, 0);
   inherited;
+end;
+
+procedure TConsoleBuffer.InternalWriteLine(aLine: String; xPos, yPos: Integer; aColor: TConsoleColor);
+var
+  i: Integer;
+  Pixel: PCharInfo;
+begin
+  for i := 1 to length(aLine) do
+  begin
+    Pixel := @FBuffer[xPos + i - 1 + yPos * FWidth];
+    Pixel^.AsciiChar := AnsiChar(aLine[i]); // Height * width is to get to the correct spot (since this array is not two dimensions).
+    Pixel^.UnicodeChar := aLine[i];
+    Pixel^.Attributes := byte(aColor);
+  end;
 end;
 
 procedure TConsoleBuffer.MovConsoleCursor;
@@ -118,37 +147,22 @@ end;
 
 procedure TConsoleBuffer.WriteLine(aLine: String);
 begin
-  WriteLine(aLine, 0, FCurrentLine, Console.ForegroundColor);
+  InternalWriteLine(aLine, 0, FCurrentLine, FDefaultColor);
   FCurrentLine := FCurrentLine + 1;
 end;
 
 procedure TConsoleBuffer.WriteLine(aLine: String; aColor: TConsoleColor);
 begin
-  WriteLine(aLine, 0, FCurrentLine, aColor);
+  InternalWriteLine(aLine, 0, FCurrentLine, aColor);
   FCurrentLine := FCurrentLine + 1;
 end;
 
 procedure TConsoleBuffer.WriteLine(aLine: String; xPos, yPos: Integer; aColor: TConsoleColor);
-var
-  i: Integer;
-  Pixel: PCharInfo;
 begin
   if (xPos > FWindowWidth - 1) or (yPos > FWindowHeight - 1) then
     raise EArgumentOutOfRangeException.Create('xPos and yPos must be inside the Window bondrais');
 
-  if aLine = '' then
-    exit;
-
-  for i := 1 to Length(aLine) do
-  begin
-    Pixel := @FBuffer[xPos + i - 1 + yPos * FWidth];
-    Pixel^.AsciiChar := AnsiChar(aLine[i]); // Height * width is to get to the correct spot (since this array is not two dimensions).
-    Pixel^.UnicodeChar := aLine[i];
-
-    if aColor <> TConsoleColor.Black then
-      Pixel^.Attributes := byte(aColor);
-  end;
-
+  InternalWriteLine(aLine, xPos, yPos, aColor);
 end;
 
 end.
